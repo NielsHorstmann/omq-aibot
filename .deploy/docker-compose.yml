@@ -1,0 +1,30 @@
+version: "3.8"
+
+networks:
+    antvisor:
+        external: true
+
+services:
+  aibot_service:
+    container_name: antvisor_aibot
+    image: ghcr.io/nielshorstmann/omq-aibot:main
+    restart: always
+    volumes:
+      - ./.env:/app/.env      
+    labels:
+      traefik.enable: true
+      traefik.http.routers.analytics_service.tls: true
+      traefik.http.routers.analytics_service.entrypoints: websecure
+      traefik.http.routers.analytics_service.tls.certresolver: letsencrypt
+      traefik.http.routers.analytics_service.rule: Host(`aibot.coonly.com`)
+      traefik.http.services.analytics_service.loadbalancer.server.port: 3000
+    hostname: aibot.coonly.com
+    logging:
+      driver: "json-file"
+      options:
+        max-file: "5"
+        max-size: "10m"
+    networks:
+      antvisor:
+        aliases:
+          - aibot.coonly.com          
