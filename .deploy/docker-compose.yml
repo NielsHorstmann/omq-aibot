@@ -13,11 +13,11 @@ services:
       - ./.env:/app/.env      
     labels:
       traefik.enable: true
-      traefik.http.routers.analytics_service.tls: true
-      traefik.http.routers.analytics_service.entrypoints: websecure
-      traefik.http.routers.analytics_service.tls.certresolver: letsencrypt
-      traefik.http.routers.analytics_service.rule: Host(`aibot.coonly.com`)
-      traefik.http.services.analytics_service.loadbalancer.server.port: 3000
+      traefik.http.routers.aibot_service.tls: true
+      traefik.http.routers.aibot_service.entrypoints: websecure
+      traefik.http.routers.aibot_service.tls.certresolver: letsencrypt
+      traefik.http.routers.aibot_service.rule: Host(`aibot.coonly.com`)
+      traefik.http.services.aibot_service.loadbalancer.server.port: 8888
     hostname: aibot.coonly.com
     logging:
       driver: "json-file"
